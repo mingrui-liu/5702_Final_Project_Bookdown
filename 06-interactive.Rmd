@@ -1,5 +1,7 @@
 # Interactive component
 
+For this interactive plot, we added two selection bars and one slide bar. In that way, you can choose the category, agency and the range of the annual salary of the job postings. You can also click on the circles to see the exact job titles, annual salaries, etc.
+
 For better viewing experience, you can also interact with our graph directly by clicking on this link https://jobpostingmap.shinyapps.io/5702-final-project/.
 
 <iframe src = "https://jobpostingmap.shinyapps.io/5702-final-project/" height=700px width=1100px />
