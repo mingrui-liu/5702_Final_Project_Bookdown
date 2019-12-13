@@ -7,4 +7,3 @@
 For better viewing experience, you can also interact with our graph directly by clicking on this link https://jobpostingmap.shinyapps.io/5702-final-project/.
 
 <iframe src = "https://jobpostingmap.shinyapps.io/5702-final-project/" height=700px width=1100px />
-
