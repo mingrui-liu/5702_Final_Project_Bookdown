@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "EDAV Final Project Group 23"
+author: "Shaofeng Wu, Chengyou Ju, Mingrui Liu, Yujing Song"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
