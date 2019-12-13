@@ -1,1 +1,19 @@
 # Missing values
+As mentioned above, we fill all empty slots in the original dataset with NAs. Then we draw a graph using `extracat::visna` to visualize the missing patterns of our dataset. The columns represent the 28 variables and the rows the missing patterns. The cells for the variables with missing values in a pattern are drawn in blue. The variables and patterns have been ordered by numbers of missings on both rows and columns. The bars beneath the columns show the proportions of missings by variable and the bars on the right show the relative frequencies of patterns.
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
+```{r}
+library(extracat)
+visna(job, sort='b')
+```
+
+From the plot, we can tell that all values under the column **Recruitment Contact** are missing. Therefore, we decide to drop this column from our data frame. For other columns, we will keep these NAs for now.
+
+```{r}
+# Drop Recuitment Contact
+job = job %>%
+  select(-c("Recruitment.Contact"))
+```
