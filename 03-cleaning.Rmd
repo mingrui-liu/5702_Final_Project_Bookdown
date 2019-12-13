@@ -1,6 +1,10 @@
 # Data transformation
 Since the dataset is stored in a neat `.csv` file, we simply read the file using the `read.csv` method and store the data in the data frame `job`. Later, when we need some specific attributes of the job postings dataset, we can use simply `$` or pipes and the `%>%` operator to extract the columns we need.
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```
+
 ```{r}
 # Load all packages needed for our project
 library(dplyr)
