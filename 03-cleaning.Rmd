@@ -1,1 +1,26 @@
 # Data transformation
+Since the dataset is stored in a neat `.csv` file, we simply read the file using the `read.csv` method and store the data in the data frame `job`. Later, when we need some specific attributes of the job postings dataset, we can use simply `$` or pipes and the `%>%` operator to extract the columns we need.
+
+```{r}
+# Load all packages needed for our project
+library(dplyr)
+library(corpus)
+library(ggplot2)
+library(magrittr)
+library(forcats)
+library(tidyverse)
+library(tm)
+library(htmlTable)
+library(ggridges)
+library(lubridate)
+library(RColorBrewer)
+library(shiny)
+library(extracat)
+library(wordcloud2)
+```
+```{r}
+job <- read.csv("data/raw/NYC_Jobs.csv") # Read data from csv file
+job[job == ''] <- NA # Set empty slots as NAs
+
+job <-job[!duplicated(job), ]
+```

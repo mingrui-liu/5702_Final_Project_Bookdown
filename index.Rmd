@@ -6,4 +6,6 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
+This project is created by Shaofeng Wu (sw3428), Chengyou Ju (cj2624), Mingrui Liu (ml4404), Yujing Song (ys3251) for STAT GR5702 Final Project Group 23.
 
+As graduate students who are actively seeking jobs and internships, we come up with the idea that we can choose a topic related to the current employment condition in New York. After doing some research, we decide to focus on studying the recent job postings in New York. We want to see, for instance, salary ranges for different categories of jobs, what skills are preferred by a particular kind of jobs, or if there is a relationship between job locations and salaries.

@@ -1,2 +1,8 @@
 # Data sources
+Our data come from https://data.cityofnewyork.us/City-Government/NYC-Jobs/kpav-sd4t, which contains current job postings available on the City of New York’s official jobs site http://www.nyc.gov/html/careers/html/search/search.shtml. 
 
+Mingrui is responsible for looking for and collecting the data. Since the data can be directly exported from the website as a `.csv` file, there is no major obstacle for us when gathering the data. After downloading the data from the website, we use the built-in `read.csv` method to read and store the data as a data frame for future manipulation.
+
+This data frame has 3040 oberservations of 28 variables. Each entry represents a job posting on the website, while the columns represent the information about each job, including Business Title, Salary Range, Job Description, etc.
+
+The only problem about the data is that in the origin `.csv` file, there are plenty of empty entries. Therefore, when we read data from the file and store as a data frame, we fill all these blank entries with NAs.
