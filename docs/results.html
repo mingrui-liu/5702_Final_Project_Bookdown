@@ -50,6 +50,11 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
 
 
 
@@ -73,7 +78,15 @@
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#job-count-by-category"><i class="fa fa-check"></i><b>5.1</b> Job Count by Category</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#distributions-of-salaries"><i class="fa fa-check"></i><b>5.2</b> Distributions of Salaries</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#word-clouds-for-text-information"><i class="fa fa-check"></i><b>5.3</b> Word Clouds for Text Information</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#how-we-get-started"><i class="fa fa-check"></i><b>5.3.1</b> How we get started</a></li>
+<li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#results-1"><i class="fa fa-check"></i><b>5.3.2</b> Results</a></li>
+<li class="chapter" data-level="5.3.3" data-path="results.html"><a href="results.html#obervations"><i class="fa fa-check"></i><b>5.3.3</b> Obervations</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -97,7 +110,802 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
+<div id="job-count-by-category" class="section level2">
+<h2><span class="header-section-number">5.1</span> Job Count by Category</h2>
+<p>Since we want to study the total number of jobs for each job category and one particular job could belong to multiple categories, we extract all the categories related to a job, seperate them, and create a new data frame called <code>popular_category</code>, which stores the counts of different job categories. Then, in order to visualize the numbers of job postings among different categories, we draw a descending horizontal bar chart based on his new data frame.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>From the graphs below, we can tell that <strong>Architecture</strong> and <strong>Engineering</strong> have the most job postings, while <strong>Procurement Policy</strong> and <strong>Social Services</strong> have the fewest.</p>
+</div>
+<div id="distributions-of-salaries" class="section level2">
+<h2><span class="header-section-number">5.2</span> Distributions of Salaries</h2>
+<p>We also want to study the distributions of salaries among different types of payroll. Since there are three payroll types in our data set, which are <strong>Annual</strong>, <strong>Daily</strong> and <strong>Hourly</strong>, we will draw three histograms to visualize the distributions. We take the mean of <code>Salary Range From</code> and <code>Salary Range To</code> as our salary for the histogram at the x-axis.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>From these three plots above, we have the following obeservations:
+* For most of the jobs, the salaries are given annually. There are also some jobs which have hourly salaries. Only a few of those jobs have daily salaries.
+* For salaries calculated annually, it has approximately right-skewed normal distribution, which means that most jobs do not have a relatively high salaries.
+* For salaries calculated daily, there is no specific pattern regarding the distribution. Some jobs have relatively low daily salaries, while others have much higher salaries.
+* For salaries calculated hourly, most of them has a relatively low value, but there are still some jobs have relatively high hourly salaries.</p>
+<p>Then, We also look into our data and find out more information about our salary distribution. For insace, for houly paied jobs, Stationary Engineer and City Medical Specialist have extremly high hourly salaries, while College Aide has low hourly salaries.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="word-clouds-for-text-information" class="section level2">
+<h2><span class="header-section-number">5.3</span> Word Clouds for Text Information</h2>
+<div id="how-we-get-started" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> How we get started</h3>
+<p>Meanwhile, we also want to study the minimum qualification requirements and preferred skills for the available jobs in NYC. We want to find if there are any patterns in these two columns and if we can extract any useful information from them. In order to illustrate our findings graphfically, we decide to use Word Clouds to show the most frequent words in these texts.</p>
+<p>So what is Word Clouds? Word Clouds is visual representations of text data. They are useful for quickly perceiving the most prominent terms, which makes them widely used in media and well understood by the public. A Word Cloud is a collection of words depicted in different sizes. The bigger and bolder the word appears, the greater frequency within a given text and the more important it is.</p>
+<p>In order to extract meaningful vocabularies from the text descriptions, we take advantage of the text mining package <code>tm</code> in R. This package is based on the ideas of Natural Language Processing (NLP). It have methods that can tranform all words to lowercases, remove words that are uninformative in Enlighs such as “a” and “the”, and get rid of whitespaces and punctuations.</p>
+<p>After these manipulations on the text data, we can create a new data frame of word frequencies. We can also sort it by frequency and find out the most frequent words under minimum qualification requirements and preferred skills for all jobs or for any particular category of jobs that we are interested in.</p>
+</div>
+<div id="results-1" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Results</h3>
+<p>Due to the problem of <code>wordcloud2</code> that only one Word Cloud graph appears after knitting to Bookdown or HTML, we save all our graphs to four seperate html files that can be automatically rendered everytime they are opened in a browser. Here are the link to those files in my GitHub repo: <a href="https://github.com/ju-chengyou/5702_Final_Word_Cloud" class="uri">https://github.com/ju-chengyou/5702_Final_Word_Cloud</a>.</p>
+<p>Here, we will show the Word Cloud of the most frequent words in Minimum Qual Requirements among all jobs in our dataset.</p>
+<div id="minium-qual-requirements-all-jobs" class="section level4">
+<h4><span class="header-section-number">5.3.2.1</span> Minium Qual Requirements @ All Jobs</h4>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Minimum Qual Requirements in All Jobs Word Frequency
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Word
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">
+experience
+</td>
+<td style="text-align: center;">
+13182
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+years
+</td>
+<td style="text-align: center;">
+6907
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+college
+</td>
+<td style="text-align: center;">
+4875
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+accredited
+</td>
+<td style="text-align: center;">
+4828
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+education
+</td>
+<td style="text-align: center;">
+4567
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+satisfactory
+</td>
+<td style="text-align: center;">
+4550
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+described
+</td>
+<td style="text-align: center;">
+4382
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+fulltime
+</td>
+<td style="text-align: center;">
+4064
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+degree
+</td>
+<td style="text-align: center;">
+3931
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+equivalent
+</td>
+<td style="text-align: center;">
+3471
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+assignment
+</td>
+<td style="text-align: center;">
+2860
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+least
+</td>
+<td style="text-align: center;">
+2780
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+school
+</td>
+<td style="text-align: center;">
+2717
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+four
+</td>
+<td style="text-align: center;">
+2535
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+engineering
+</td>
+<td style="text-align: center;">
+2327
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+candidates
+</td>
+<td style="text-align: center;">
+2242
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+professional
+</td>
+<td style="text-align: center;">
+2222
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+level
+</td>
+<td style="text-align: center;">
+2165
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+baccalaureate
+</td>
+<td style="text-align: center;">
+2141
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+high
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+2083
+</td>
+</tr>
+</tbody>
+</table>
+<!-- ```{r} -->
+<!-- library(wordcloud2) -->
+<!-- library(webshot) -->
+<!-- webshot::install_phantomjs(force = TRUE) -->
+<!-- mini_freq_graph <- wordcloud2(data=mini_freq, color='random-light', backgroundColor='black') -->
+<!-- library("htmlwidgets") -->
+<!-- saveWidget(mini_freq_graph,"mini_freq_graph.html", selfcontained = F) -->
+<!-- ``` -->
+<p><div id="htmlwidget-33379c59b9fc9e9e3b53" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33379c59b9fc9e9e3b53">{"x":{"word":["experience","years","college","accredited","education","satisfactory","described","fulltime","degree","equivalent","assignment","least","school","four","engineering","candidates","professional","level","baccalaureate","high","related","work","state","license","requirements","new","york","credits","months","project","may","administration","management","administrative","diploma","educational","semester","technology","university","capacity","recognized","accrediting","construction","â€œâ€","substituted","computer","public","qualification","managerial","field","however","supervisory","science","community","three","six","employment","additional","department","addition","area","valid","required","meeting","approved","organization","architecture","combination","executive","areas","planning","bar","masters","research","information","note","five","data","systems","states","iii","landscape","minimum","graduate","duties","specialized","duration","admission","acceptable","design","program","civil","following","business","law","responsible","development","performing","programming","placement","basis","special","individuals","legal","agencies","council","higher","secretary","national","will","accreditation","bodies","chea","major","regional","activities","driver","eligible","environmental","assigned","complex","maintained","position","engineer","â€œ","architect","maximum","social","architectural","health","economic","electrical","centered","specialization","technical","subsequent","within","operations","accounting","personnel","appropriate","last","levels","relations","supplemented","graduation","registered","possess","mechanical","projects","processing","contributor","leader","study","motor","physical","plus","vehicle","staff","requirement","services","urban","course","time","agency","clericaladministrative","analysis","supervising","either","working","labor","service","acquired","software","stateâ€™s","associate","progressively","student","biological","eighteen","human","appointment","large","comparable","united","closely","sciences","psychology","applications","telecommunications","registration","total","specific","maintenance","resources","general","supervision","disciplines","period","matriculation","city","fiscal","credited","industrial","finance","organizational","chemical","current","relevant","evaluation","auditing","budget","economics","financial","manager","credit","fields","use","building","upon","incumbents","statistics","administering","good","leading","consultative","studies","control","managing","masterâ€™s","undergraduate","standing","remain","training","conditioned","continuance","members","trades","paid","coordinating","inspection","issued","probationary","based","operation","requiring","database","expediting","title","completion","rate","classroom","served","make","record","accident","moving","violations","helper","trade","employees","listed","contract","disqualified","can","security","sociology","appointed","interne","architects","attorney","engineerâ€™s","type","equal","value","needed","user","construct","expertise","made","ability","employed","market","suspension","vocational","equipment","political","promotion","certificate","sufficient","behavior","benefits","employee","installation","appointments","classification","specify","worked","shall","water","hardware","skills","primarily","eight","private","network","communication","planningadministration","support","methods","policy","difficulty","fifteen","hours","moderate","procurement","concern","examining","planningevaluation","recruitment","given","certification","apprentice","housing","board","nature","end","full","accepted","cost","included","involving","ten","operating","performed","possession","journeyperson","technician","certain","enforcement","capital","facilities","performance","bachelor","commercial","dollar","electrician","engineers","candidate","master","rules","licensed","subject","medical","certified","governmental","laws","half","monitoring","positions","inspections","safety","equated","practice","programs","nine","established","geology","particular","chemistry","process","pursuant","real","troubleshooting","implementation","operational","quality","system","applied","negotiationmanagement","class","clerical","nursing","twentyfour","bachelorâ€™s","periods","buildings","investigation","mainframe","networks","obtain","word","aide","estate","watershed","communications","mechanic","minute","per","qualified","repair","without","words","air","institution","obtained","qualify","task","tenure","substitute","towards","also","familiarity","inspecting","pertinent","biology","certifications","committee","electronics","enrolled","plants","professionalvendor","used","â€¢","nurse","key","keyboard","recent","sixty","strokes","transportation","using","bridge","duly","question","regulations","sanitary","territory","types","classes","family","fellow","halftime","order","session","steering","structural","students","traffic","vacation","week","allotted","description","hand","money","noting","pollution","child","first","lmsw","maintain","physics","seven","base","calculator","consoles","continued","datainformation","desk","entering","formal","held","help","laboratory","packages","preprogrammed","product","section","superficial","updating","writing","doctorate","mathematics","primary","scientist","problems","electronic","geologic","responsibilities","specialty","assurance","advanced","handling","plan","treatment","application","perform","focus","forensic","assure","english","enhancement","food","inventory","statistical","facility","highly","local","meet","paralegal","significant","bachelors","clinical","decisionmaking","domain","lcsw","methodology","scientific","shaft","site","skilled","stations","accountant","understand","apprenticeship","compliance","configuration","eligibility","group","inspector","integration","reciprocity","detail","fire","implementing","maintaining","worker","cited","criminal","criminalistics","examination","journalism","police","utilizing","voice","debugging","designing","enhancing","explain","investigations","liaison","line","qualifies","stated","internal","post","remaining","web","analytical","attorneys","justice","broad","fiscalfinancial","largescale","media","tunnel","assistant","mental","â€“","american","firm","hygiene","infrastructure","report","reservoirs","office","property","â€œspecial","auditor","cdl","emergency","graphics","interaction","machinist","mapping","medicine","noteâ€","able","determine","plumbing","policymaking","aqueduct","arts","concerning","controlling","journeyman","materials","purification","repairing","upkeep","wastewater","care","code","counseling","groups","policies","responsibility","another","brokerage","constructionrelated","digital","functions","goods","interactive","investment","notes","person","spent","tension","visualization","volts","botany","coordination","court","hazards","includes","part","auto","defined","earth","environment","essential","existing","forestry","hired","plant","properties","radio","structures","carry","include","instructions","sanitarian","simple","youth","aging","analytic","anthropology","assignments","compilation","rehabilitation","take","tenants","drugs","natural","nonmanagerial","purchasing","testing","toxicology","appeals","applicants","day","fine","marine","occupational","permit","psychiatric","qualifying","quantitative","renting","sections","teaching","tenant","ventilation","completed","examples","infection","operator","physiology","residential","sanitation","whether","wide","zoology","allocation","commissioner","courses","criminalist","equals","extended","gained","genetics","hospital","identification","independent","molecular","providing","rights","rock","scheduling","totaling","children","conditions","directly","guidelines","less","officer","personal","qualifications","strong","art","determined","employing","equivalency","filled","future","gathering","industrystandard","intergroup","learners","mobile","options","preparation","principles","products","suspensions","third","update","version","character","furthermore","governing","nycrr","persons","toward","abuse","actuarial","advertising","approximately","businesssystems","charge","claims","conduct","coordinative","direct","discretion","drivers","generation","gis","graphic","instrumentation","investigating","job","negotiationsmanagement","opportunity","repairs","restrictions","secretarial","see","spatial","team","telephone","titles","boiler","childhood","customer","follows","interviewing","negotiation","organizing","plasterer","aeronautical","disease","entomology","environmentss","epidemiology","evaluating","forth","gardener","maltreatment","methodologies","military","overseeing","permanently","petroleum","relocation","salary","set","soil","specifications","subspecialty","understood","welfare","areawide","auditors","casework","early","entry","highway","indicated","patrolman","plumber","practices","preferred","pressure","reasonable","regionallyaccredited","supervisor","appointees","cadets","cloud","datacenter","degrees","dismissal","disposition","electricianâ€™s","enterprise","except","fail","failure","families","fitter","generating","geologist","horticulture","library","mdt","pumping","recreation","result","settling","shrubs","solutions","status","supported","switching","trees","volume","accommodation","activity","disability","eligibles","enable","examined","fitness","interpersonal","involved","journey","judgment","noted","nyc","provided","setting","approval","coast","conducting","demonstrated","discharge","ecology","federal","guard","individual","injury","managed","multiple","planting","production","requires","specified","supplies","analyzing","carpenter","cases","childcare","equaling","excellent","gardening","institutional","knowledge","pediatrics","preclude","substantial","advance","agents","applicator","artist","baits","biochemistry","botanical","caring","case","cellular","chemicalsequipment","cleaning","conferences","conferencing","connection","consensus","conservation","consultant","csw","cultivating","cyber","damage","date","determining","electromechanical","emphasizes","endorsement","engagement","extermination","facilitation","fiber","garden","incidental","infectious","insecticides","insects","integral","interpretation","involves","lawns","loss","maritime","meetings","mentioned","microsoft","microwave","modalities","model","optic","parents","pesticide","pests","postgraduate","power","practical","practicing","prevention","pulmonary","rodenticides","serious","specialist","steam","topics","traps","twelve","vermin","vessels","waterfront","admitted","appraisal","authorized","chapter","evidence","financing","iia","institute","mason","necessary","oral","painter","prior","standards","superintendent","unacceptable","aba","academy","attempt","automotive","body","boilers","complete","conditioning","contact","containing","contracts","convictions","cultural","disqualify","duty","entrydata","extensive","foods","heating","history","inquire","investigator","juvenile","leadership","manufacture","mechanics","medication","merchant","number","option","package","paint","prospective","read","receive","reconstructionrehabilitation","recording","retrieval","risk","storage","substance","suiteback","terminated","therapy","tools","users","additionally","analyses","appear","association","background","bridges","detection","liability","list","movable","name","promoted","protection","range","speak","written","abusechemical","accordance","actual","alternative","arboricultural","archival","assuring","beginning","benefit","cardiopulmonary","cash","certifying","closelyrelated","collecting","collegelevel","compensation","completing","consideration","considered","consultation","cpr","dance","dealing","deck","dependencyalcoholism","director","disabilities","dwellings","elevators","environments","estimates","exam","exploration","explorations","exploratory","faults","feet","geomorphology","hiring","hydrogeology","hydrology","income","indicates","industry","joint","jointed","lan","leadbased","leases","limited","litigation","locksmith","logging","machine","machinists","making","mathematical","matters","midrange","mining","networking","nonconsultative","occupancy","offense","payment","petrology","pipe","postbaccalaureate","practitioner","properly","protect","provision","ranger","ready","receipt","received","receiving","recommendations","renovation","rental","reporting","response","resuscitation","retardationdevelopmental","satisfactorily","sedimentation","sending","sets","shop","similar","sinking","sit","soils","square","subsurface","surrender","surveying","tape","teams","throughout","tunneling","underground","unit","vacancies","vibration","violence","wan","adolescents","age","assets","automation","autopsy","bearing","beyond","build","center","computations","corrupt","currently","daycare","developing","discipline","file","institutions","location","mortuary","officers","organizations","pay","peace","retirement","searching","september","serving","spanish","technologist","uncover","unethical","unlawful","verifying","worthiness","abandoned","active","adherence","agriculture","agronomy","alteration","antiabandonment","armed","assign","assisting","assumption","awarded","biostatistics","botanic","brick","brooklyn","category","chemicals","citizen","citywide","commission","complaints","comprehensive","contractor","correction","correctional","credential","crop","dde","devices","diseases","dishonorable","dispense","distribution","diversity","epa","epidemic","equity","estimating","estimation","etc","evaluator","examinations","exercise","fellowship","firemanwatertender","floriculture","forces","fuel","furnishings","furniture","government","graduates","guidance","heat","horsepower","increasingly","installations","intelligence","iron","issues","items","journeymanlevel","junior","lead","licenses","light","limnology","linoleum","lumber","marinerâ€™s","metals","microprocessors","mmc","modifications","moral","naval","nurses","nutrition","obtaining","offered","oiler","owned","painting","paints","park","particularly","past","pathology","plumbers","pneumatic","preparedness","printing","probation","programlevel","promotions","propagating","psychological","purchase","qmed","quantitativequalitative","reading","receivership","regulation","residency","rodent","sampling","sand","several","shades","spec","specialists","specialties","stationary","sundry","tasks","tax","textiles","thirty","twenty","vehicles","vehicular","well","wire","wood","act","bookkeeping","clerk","cooking","detect","dispatcher","exceptional","explosion","explosives","extinguishing","flammables","installer","ironworker","length","manufactured","municipal","potential","premises","professionals","purpose","receptionist","solid","sprinkler","standpipes","stored","tables","â€™","action","adding","adjust","adviser","affecting","affirmative","alarm","among","answers","apartments","aqueducts","arboriculture","assessing","assessor","attendance","automatically","available","band","black","bsba","bureau","carpentry","carrying","cause","certificationlicense","changing","chaplaincies","client","climber","colors","combustion","commencing","commitment","competency","computers","conceptualizing","conviction","creation","criminology","curriculum","dataassignment","databases","debt","december","denomination","deputy","desired","detention","developments","devoted","different","disaster","disorder","disqualification","disrespect","division","document","domestic","dynamics","ecclesiastical","econometrics","edny","effectively","elements","elevator","employs","endorsing","ensure","ensuring","entrance","epidemiological","evening","expected","experienced","factors","faith","floating","forensics","garage","gas","governed","graduated","home","homeland","homicide","horticultural","hoses","hour","hud","ideal","imprisonment","inability","increasing","indicate","initiating","inmate","inorganic","inquiries","international","interventionprevention","investments","january","june","kindergarten","known","lack","lands","largely","layout","learnerâ€™s","legislative","manner","maybe","measuring","messages","meters","missing","mpre","multistate","needs","ninety","official","oils","old","online","parts","passed","physicians","plastererâ€™s","plastering","poor","posses","preferably","preschool","prescribe","present","priorities","promotional","pruner","publicâ€™s","punishable","questions","rating","ratings","referrals","regulatory","rents","repairer","researching","resolve","resolving","responding","risks","sanitarians","scale","schooling","schools","sdny","sea","seagoing","seaman","senior","settlement","sewer","signals","specializing","stories","studied","success","successful","supply","surveillance","taxation","taxrelated","teacher","telecommunication","telecommunicationsnetworking","thermostat","torch","tort","trainee","transactions","transmissions","trial","understanding","unlimited","variety","various","victims","voiceassignment","waste","waters","way","weekends","white","whose","write","abilities","agent","amended","asbestos","childcaring","civic","conducted","creative","demonstrating","designated","deskdesk","edp","elementary","evidentiary","glazier","grounds","housed","insulation","lanwan","lather","mainframeminicomputer","managers","metal","minicomputer","need","permanent","pharmacology","protective","renewal","representative","restriction","roofer","sheet","sheetmetal","sheetrock","spread","taper","teachers","top","volunteer","young","â€â€","academies","acceptability","accommodations","adapt","adhering","administrator","adults","advocacy","affairs","alcoholism","applicant","apprentices","arborist","article","aspects","assemble","asset","associated","attention","august","authority","automobile","aviation","banking","basic","behavioral","blacksmiths","block","bookkeeper","bracing","bulkheads","button","caliber","carefully","casac","centers","central","certificates","cfr","changes","charts","chief","cityâ€™s","clearly","clicking","climbing","clinic","coastwise","coding","collaborative","collection","combined","comfortable","communitybased","competent","concurrent","condition","considerable","consisting","constituency","consulting","contaminated","contemporary","contractors","cook","cooperation","counselor","courts","cover","cplr","credentialed","critical","cutting","days","deckhand","dedication","deep","delinquencycriminal","demonstrable","derricks","designation","designer","developed","developmentally","diesel","difficult","direction","disabled","discharged","disturbed","diverse","dockbuilder","dockbuilding","dockings","docks","drainage","driven","driverâ€™s","dry","duraion","dust","dynamic","editing","edition","editorial","eeoaa","effective","effort","emotionally","emphasis","emphasizing","employer","engage","engine","engines","environmentaloccupational","epidemiologic","equivalentrelated","especially","establish","ethics","ever","every","excel","executivelevel","exposure","extraordinary","facilitate","fast","felling","felony","ferry","finding","fireman","flexible","flow","form","fouryears","fullytrained","geometric","getting","grade","great","ground","handle","handyman","herein","highest","highpressure","hire","hoists","hose","houses","icdcm","immediate","implement","improvement","inclusion","indicating","initiatives","injuries","inland","inspects","install","instructor","instrumental","intake","interact","intersection","investigatory","ironwork","janitorial","journeywomanjourneyman","kingsborough","knowledgeable","lakes","landlords","late","leadcontaminated","lending","lieu","located","machinery","maintainer","maintenanceconstruction","maker","manage","manual","mariners","markings","masonry","maternalchild","matriculated","meal","mediate","member","modeling","month","motorized","navigational","neighborhood","nonsupervisory","normally","notice","nys","obey","occasional","ocean","offence","older","operators","orders","organic","organized","overhaul","pace","parking","parole","participation","parttime","patient","patrolmen","pediatric","penal","personalinjurycase","pharmacist","phases","phd","physicianâ€™s","piers","pile","piledriving","piping","planningmanagement","player","please","pmp","poisoning","population","portfolio","portion","powered","powerpoint","practicioner","prek","prepare","preparednessadministration","prescribed","productively","proficient","prosecution","provisions","pruning","publicity","quickly","records","register","removal","represented","require","resident","respectively","responses","responsive","rigging","roadways","safe","sales","scd","scienceinformation","second","selfstart","sequence","signs","sound","stakeholders","statewide","stationery","statutory","storekeeping","strongly","sub","suite","superior","supervised","supporting","sure","sustainability","techniques","teller","tensions","term","terminals","tests","theory","thereof","thinking","timely","tires","track","trained","transport","tree","try","tubes","underway","valuation","vendor","vendors","verbal","visiting","watch","wheels","willing","willingness","winterspring","workers","workforce","workforces","academic","accounts","accurately","administrationdepartment","adult","ages","aiding","antiviolence","assessment","assistance","athletic","bank","candidtes","cashier","casualty","check","commanding","compassionate","congregate","considering","coursework","craftsman","deal","decisions","deducted","determinations","documentation","engaged","errors","experiencing","hold","honorable","independently","insurance","internships","juveniles","mentoring","noise","noncompetitive","nonsecure","officerassignment","often","opportunities","planningcounseling","plumberâ€™s","preparing","problemsolvers","procedure","provides","recognize","recreational","respond","rule","satisfy","screening","serve","solving","speed","store","therefore","token","trauma","typing","unemployment","witness","yet","youths"],"freq":[13182,6907,4875,4828,4567,4550,4382,4064,3931,3471,2860,2780,2717,2535,2327,2242,2222,2165,2141,2083,1970,1964,1875,1821,1812,1757,1755,1750,1715,1687,1644,1635,1617,1601,1509,1492,1480,1442,1432,1395,1369,1338,1333,1300,1287,1275,1266,1262,1252,1231,1229,1216,1186,1131,1129,1076,1066,1018,1008,1002,995,979,976,972,958,952,929,926,889,883,881,867,824,821,815,802,799,789,775,751,742,738,735,731,706,704,700,678,675,673,671,670,655,627,604,600,593,587,581,574,573,572,570,567,561,556,554,553,551,551,549,549,549,549,549,544,544,541,539,531,528,516,516,502,500,500,496,496,495,483,479,474,472,469,469,462,460,457,455,451,449,443,442,439,433,420,418,416,415,411,406,404,404,404,395,387,382,381,380,378,376,366,365,365,357,352,349,345,339,339,337,337,334,328,327,322,319,314,313,312,306,301,300,285,284,281,275,272,269,266,264,262,258,257,257,255,255,252,252,251,243,243,239,238,234,233,232,228,224,222,220,220,219,218,218,214,213,211,210,207,206,204,201,201,198,196,196,195,194,194,193,189,188,188,186,186,186,186,184,183,183,182,181,180,177,177,176,174,169,167,167,166,163,161,161,157,155,155,149,148,147,147,146,146,145,144,144,143,141,139,139,139,138,137,137,136,135,134,134,134,133,133,133,133,133,132,132,131,129,129,128,125,125,124,122,122,122,122,121,121,120,120,118,117,116,115,114,114,114,113,113,112,112,112,112,112,110,110,110,110,109,108,107,107,105,105,104,102,100,100,100,100,99,97,97,97,96,96,95,95,94,94,94,93,92,92,92,92,91,91,90,89,89,88,87,86,86,84,84,84,82,82,81,81,81,80,79,79,79,78,78,78,78,78,77,77,77,77,76,76,75,75,75,75,74,74,73,73,73,73,73,73,72,72,72,71,71,71,71,71,71,71,71,70,70,70,70,70,70,69,69,68,68,67,67,66,66,66,66,66,66,66,66,65,65,64,64,64,64,64,64,64,63,63,63,63,63,63,63,62,62,62,62,62,62,62,62,62,62,62,62,61,61,61,61,61,61,60,60,60,60,60,60,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,59,58,58,58,58,57,56,56,56,56,55,54,54,54,54,53,53,52,51,50,50,50,50,50,50,49,49,49,49,49,49,48,48,48,48,48,48,48,48,48,48,48,47,47,46,46,46,46,46,46,46,46,45,45,45,45,45,44,44,44,44,44,44,44,44,43,43,43,43,43,43,43,43,43,42,42,42,42,41,41,41,40,40,40,40,40,39,39,38,38,38,38,38,38,38,37,37,36,36,36,36,36,36,36,36,36,36,35,35,35,35,34,34,34,34,34,34,34,34,34,34,33,33,33,33,33,33,32,32,32,32,32,32,32,32,32,32,32,32,32,32,31,31,31,31,31,31,30,30,30,30,30,30,30,30,30,30,30,30,29,29,29,29,29,29,28,28,28,28,28,28,28,28,27,27,27,27,27,27,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,25,25,25,25,25,25,25,25,25,25,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,23,23,23,23,23,23,23,23,23,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,21,21,21,21,21,21,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,19,19,19,19,19,19,19,19,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,13,13,13,13,13,13,13,13,13,13,13,13,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-light","minSize":0,"weightFactor":0.0109239872553482,"backgroundColor":"black","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<!-- ```{r showChoro1} -->
+<!-- htmltools::includeHTML("~/Documents/Columbia_Fall_2019/5702_Projects/5702-final-project/mini_freq_graph.html") -->
+<!-- ``` --></p>
+</div>
+<div id="preferred-skills-all-jobs" class="section level4">
+<h4><span class="header-section-number">5.3.2.2</span> Preferred Skills @ All Jobs</h4>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Preferred Skills in All Jobs Word Frequency
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Word
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">
+experience
+</td>
+<td style="text-align: center;">
+4322
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+skills
+</td>
+<td style="text-align: center;">
+3960
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+ability
+</td>
+<td style="text-align: center;">
+3227
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+knowledge
+</td>
+<td style="text-align: center;">
+1844
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+strong
+</td>
+<td style="text-align: center;">
+1764
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+work
+</td>
+<td style="text-align: center;">
+1541
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+management
+</td>
+<td style="text-align: center;">
+1528
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+excellent
+</td>
+<td style="text-align: center;">
+1509
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+communication
+</td>
+<td style="text-align: center;">
+1494
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+written
+</td>
+<td style="text-align: center;">
+1097
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+microsoft
+</td>
+<td style="text-align: center;">
+1045
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+years
+</td>
+<td style="text-align: center;">
+968
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+preferred
+</td>
+<td style="text-align: center;">
+912
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+excel
+</td>
+<td style="text-align: center;">
+880
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+project
+</td>
+<td style="text-align: center;">
+830
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+working
+</td>
+<td style="text-align: center;">
+829
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+new
+</td>
+<td style="text-align: center;">
+750
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+verbal
+</td>
+<td style="text-align: center;">
+699
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+data
+</td>
+<td style="text-align: center;">
+693
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+organizational
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+669
+</td>
+</tr>
+</tbody>
+</table>
+<!-- ```{r} -->
+<!-- library(wordcloud2) -->
+<!-- wordcloud2(data=pref_freq, color='random-light', backgroundColor='black', size=0.8) -->
+<!-- ``` -->
+<!-- ```{r showChoro1} -->
+<!-- htmltools::includeHTML("~/Documents/Columbia_Fall_2019/5702_Projects/5702-final-project/pref_freq_graph.html") -->
+<!-- ``` -->
+</div>
+<div id="minium-qual-requirements-tech-jobs" class="section level4">
+<h4><span class="header-section-number">5.3.2.3</span> Minium Qual Requirements @ Tech Jobs</h4>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Minimum Qual Requirements in Technology Related Jobs Word Frequency
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Word
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">
+experience
+</td>
+<td style="text-align: center;">
+1827
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+computer
+</td>
+<td style="text-align: center;">
+864
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+college
+</td>
+<td style="text-align: center;">
+766
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+years
+</td>
+<td style="text-align: center;">
+743
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+accredited
+</td>
+<td style="text-align: center;">
+720
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+education
+</td>
+<td style="text-align: center;">
+697
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+satisfactory
+</td>
+<td style="text-align: center;">
+689
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+equivalent
+</td>
+<td style="text-align: center;">
+628
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+described
+</td>
+<td style="text-align: center;">
+575
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+fulltime
+</td>
+<td style="text-align: center;">
+561
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+data
+</td>
+<td style="text-align: center;">
+509
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+school
+</td>
+<td style="text-align: center;">
+498
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+degree
+</td>
+<td style="text-align: center;">
+472
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+four
+</td>
+<td style="text-align: center;">
+457
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+programming
+</td>
+<td style="text-align: center;">
+442
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+systems
+</td>
+<td style="text-align: center;">
+429
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+least
+</td>
+<td style="text-align: center;">
+386
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+months
+</td>
+<td style="text-align: center;">
+383
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+high
+</td>
+<td style="text-align: center;">
+356
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+related
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+352
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="preferred-jobs-tech-jobs" class="section level4">
+<h4><span class="header-section-number">5.3.2.4</span> Preferred Jobs @ Tech Jobs</h4>
+<table class="gmisc_table" style="border-collapse: collapse; margin-top: 1em; margin-bottom: 1em;">
+<thead>
+<tr>
+<td colspan="2" style="text-align: left;">
+Preferred Skills in Technology Related Jobs Word Frequency
+</td>
+</tr>
+<tr>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Word
+</th>
+<th style="border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;">
+Frequency
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">
+experience
+</td>
+<td style="text-align: center;">
+1030
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+skills
+</td>
+<td style="text-align: center;">
+511
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+ability
+</td>
+<td style="text-align: center;">
+460
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+knowledge
+</td>
+<td style="text-align: center;">
+327
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+management
+</td>
+<td style="text-align: center;">
+307
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+strong
+</td>
+<td style="text-align: center;">
+295
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+years
+</td>
+<td style="text-align: center;">
+270
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+security
+</td>
+<td style="text-align: center;">
+227
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+excellent
+</td>
+<td style="text-align: center;">
+206
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+development
+</td>
+<td style="text-align: center;">
+202
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+working
+</td>
+<td style="text-align: center;">
+189
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+communication
+</td>
+<td style="text-align: center;">
+186
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+project
+</td>
+<td style="text-align: center;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+work
+</td>
+<td style="text-align: center;">
+177
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+microsoft
+</td>
+<td style="text-align: center;">
+172
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+systems
+</td>
+<td style="text-align: center;">
+161
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+technical
+</td>
+<td style="text-align: center;">
+156
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+data
+</td>
+<td style="text-align: center;">
+154
+</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+sql
+</td>
+<td style="text-align: center;">
+149
+</td>
+</tr>
+<tr>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+following
+</td>
+<td style="border-bottom: 2px solid grey; text-align: center;">
+134
+</td>
+</tr>
+</tbody>
+</table>
+<!-- ```{r} -->
+<!-- library(wordcloud2) -->
+<!-- wordcloud2(data = tech_pref_freq, color='random-light', backgroundColor='black', size=0.8) -->
+<!-- ``` -->
+</div>
+</div>
+<div id="obervations" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Obervations</h3>
+<p>We can have plenty of observations from the four Word Clouds. For instance, we can see that for both Minimum Qual Requirements and Preferred Skills, <em>experience</em> is the most frequent word in all these four graphs, which makes sense, since previous working experience is indeed very important for applicants.</p>
+<p>Also, when comparing all jobs with technological jobs, we notice that for tech jobs prefer to hire employees with skills related to technology, since vocabularies like <em>computer</em> and <em>programming</em> appears a lot in these texts. Even some words about specific skills, such as <em>sql</em>, appear in our most frequent word list.</p>
+<p>Meanwhile, in all these four graphs, vocabularies like <em>skills</em>, <em>knowledge</em>, <em>management</em>, <em>communication</em> appear plenty of times. This makes sense since all employers want to hire people who have solid skills and are good at communication and cooperation.</p>
+<p>Finally, in general, we find that minimum requirements of all jobs and tech jobs graphs share almost the same set of frequent words, which we believe is due to the fact that <strong>minimum</strong> requirements are similar for all kinds of jobs.</p>
 
+</div>
+</div>
 </div>
             </section>
 
