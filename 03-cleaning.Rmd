@@ -1,5 +1,7 @@
 # Data transformation
-Since the dataset is stored in a neat `.csv` file, we simply read the file using the `read.csv` method and store the data in the data frame `job`. Later, when we need some specific attributes of the job postings dataset, we can use simply `$` or pipes and the `%>%` operator to extract the columns we need.
+Since the dataset is stored in a neat `.csv` file, we simply read the file using the `read.csv` method and store the data in the data frame `job`. Later, when we need some specific attributes of the job postings dataset, we can use simply `$` or pipes and the `%>%` operator to extract the columns we need. 
+
+In order to plot a interactive map, we need the data of coordinates. However, we don't have those coordinates in our dataset. Under this circumstance, we deployed the google API which is so-called `geocode()`. After we successfully scraped the longitudes and latitudes of addresses of different job locations, we were able to plot the points on the map of NYC accurately. What's more, because the google API could not find some specific locations and returned `NA`, we had to drop those rows with `NA` values in longitudes and latitudes.
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
